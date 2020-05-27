@@ -1,5 +1,8 @@
+# Set ENV Vars for pwds:
+# ADMIN_PWD -> *YOURPWD*
+# USER_PWD -> *YOURPWD*
+
 version: "2"
- 
 services:
  codesys:
    image: hilschernetpi/netpi-codesys-basis:latest
@@ -9,7 +12,7 @@ services:
      - 22:22
    devices:
      - "/dev/vcio:/dev/vcio
-     #  Mount Codesys license dongle -> has to be plugged in / otherwise no Container start hidraw0
+    #  Mount Codesys license dongle -> has to be plugged in / otherwise no Container start hidraw0
      - "/dev/hidraw0:/dev/hidraw0"
      - "/dev/spidev0.0:/dev/spidev0.0"
      - "/dev/net/tun:/dev/net/tun"
