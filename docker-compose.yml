@@ -8,11 +8,13 @@ services:
    ports:
      - 22:22
    devices:
-     - "/dev/vcio:/dev/vcio"
+     - "/dev/vcio:/dev/vcio
+     #  Mount Codesys license dongle -> has to be plugged in / otherwise no Container start hidraw0
      - "/dev/hidraw0:/dev/hidraw0"
      - "/dev/spidev0.0:/dev/spidev0.0"
      - "/dev/net/tun:/dev/net/tun"
-     - "/dev/sda1:/dev/sda1"
+   # Mount optional USB Stick -> has to be plugged in / otherwise no Container start  
+   #  - "/dev/sda1:/dev/sda1"
    privileged: true
    environment:
      - SSHPORT=22
