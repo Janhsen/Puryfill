@@ -5,6 +5,8 @@ services:
    image: hilschernetpi/netpi-codesys-basis:latest
    network_mode: "host"
    restart: always
+   ports:
+     - 22:22
    devices:
      - "/dev/vcio:/dev/vcio"
      - "/dev/hidraw0:/dev/hidraw0"
@@ -12,8 +14,11 @@ services:
      - "/dev/net/tun:/dev/net/tun"
      - "/dev/sda1:/dev/sda1"
    privileged: true
+   environment:
+     - SSHPORT=22
  
  nodered:
+   restart: unless-stopped
    image: hilschernetpi/netpi-nodered:latest
    ports:
      - "1880:1880"
@@ -24,6 +29,7 @@ services:
    privileged: true
  
  influxdb:
+   restart: unless-stopped
    image: influxdb:latest
    restart: always
    ports:
@@ -36,35 +42,9 @@ services:
      - INFLUXDB_DB=db0
      - INFLUXDB_ADMIN_ENABLED=true
      - INFLUXDB_ADMIN_USER=admin
-     - INFLUXDB_ADMIN_PASSWORD="gruppe=422"
+     - INFLUXDB_ADMIN_PASSWORD=${ADMIN_PWD}
      - INFLUXDB_USER=user
-     - INFLUXDB_USER_PASSWORD="gruppe=422"
- 
- grafana:
-   image: grafana/grafana:latest
-   restart: always
-   ports:
-     - "3000:3000"
-   networks:
-     - bridgeNetwork
-   volumes:
-     - grafana-storage:/var/lib/grafana
-     - ./grafana-provisioning/:/etc/grafana/provisioning
-   depends_on:
-     - influxdb
-
- chronograf:
-   image: chronograf:latest
-   ports:
-     - '127.0.0.1:8888:8888'
-   volumes:
-     - chronograf-storage:/var/lib/chronograf
-   depends_on:
-     - influxdb
-   environment:
-     - INFLUXDB_URL=http://influxdb:8086
-     - INFLUXDB_USERNAME=admin
-     - INFLUXDB_PASSWORD="gruppe=422"
+     - INFLUXDB_USER_PASSWORD=${USER_PWD}
 
 networks:
    bridgeNetwork:
@@ -77,5 +57,3 @@ networks:
                  
 volumes:
     influxdb-storage:
-    chronograf-storage:
-    grafana-storage:
