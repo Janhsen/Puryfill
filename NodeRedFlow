@@ -1,0 +1,1097 @@
+[
+    {
+        "id": "22d896af.bdb902",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "63373012.3c6ec",
+        "type": "debug",
+        "z": "22d896af.bdb902",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 730,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a4d1ef1b.8442d8",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.rTempProcessChamber",
+        "datatype": "Float",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 180,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "3a95be8f.d1de62",
+        "type": "inject",
+        "z": "22d896af.bdb902",
+        "name": "Subscribe",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 70,
+        "y": 640,
+        "wires": [
+            [
+                "a4d1ef1b.8442d8",
+                "cf9b5b8f.29225",
+                "3bb68b53.47a1bc",
+                "8e6df3f2.c52498",
+                "9b9036f.66ef548",
+                "e3a854bc.31b7e8",
+                "cfc084fd.7c8af8",
+                "5603eac1.79c11c",
+                "a686d9d3.b9a63",
+                "ddcb48ea.21219",
+                "9600f262.a8f",
+                "be4876e.1761188",
+                "64977204.e4b98c",
+                "af0edea6.c64d7",
+                "1f4148ad.0a3fb7",
+                "87a58b18.55d5e8",
+                "7eec2aaa.1da3dc",
+                "fc133037.262c3",
+                "71e80f64.ad9688",
+                "d6b58924.993028",
+                "e61c3f8c.bb498",
+                "68187f64.a43db",
+                "7cb316fc.d2942",
+                "a52cf91b.e86db8"
+            ]
+        ]
+    },
+    {
+        "id": "87cc4451.5e6a98",
+        "type": "OpcUa-Client",
+        "z": "22d896af.bdb902",
+        "endpoint": "418cd808.66d04",
+        "action": "subscribe",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": "1",
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "name": "",
+        "x": 520,
+        "y": 640,
+        "wires": [
+            [
+                "63373012.3c6ec",
+                "47e3793e.1a1c78"
+            ]
+        ]
+    },
+    {
+        "id": "cf9b5b8f.29225",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xBuildingAxisBottom",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "862832e2.fc2578",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "AxisBottom",
+        "measurement": "Formiga_AxisBottom",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "bd2b3310.a854a8",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "Temperature",
+        "measurement": "Formiga_Temp",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 180,
+        "wires": [],
+        "info": "precision rfc3339"
+    },
+    {
+        "id": "47e3793e.1a1c78",
+        "type": "switch",
+        "z": "22d896af.bdb902",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.rTempProcessChamber",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xBuildingAxisBottom",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCompressedAirRightenDoor",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCompressedAirSwitch",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCylinderPowderFlapAtDosageDuct",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorLockAndLaser",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorLocked",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorSafetyDisabled",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorSafetyInterrupted",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDosageFlapsPowderSupply",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xEMOCircuitEmergencyOff",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xFramePresent",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xHeaterProcessChamber",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xHeaterUnloadingChamber",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xKeyswitchLaserOff",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xLaserFault",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xLaserWarning",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xNitrogenGenerator",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderVibratorAtDosageDuct",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin1BuiltIn",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin1NotEmpty",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin2BuiltIn",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin2NotEmpty",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xRecoaterLeft",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xRecoaterRight",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 25,
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "3f39e038.27ada",
+                "bd2b3310.a854a8"
+            ],
+            [
+                "862832e2.fc2578",
+                "425b0bc5.b1c42c"
+            ],
+            [
+                "934302b1.1dbf38",
+                "a62fe717.ad40f8"
+            ],
+            [
+                "10ed696e.a1577f"
+            ],
+            [
+                "8bd2225e.62df48"
+            ],
+            [
+                "ac8adea7.48daf"
+            ],
+            [
+                "4eb888ad.fee1a8"
+            ],
+            [
+                "e1f379fd.f53558"
+            ],
+            [
+                "f36cf99.d010c08"
+            ],
+            [
+                "e80cd1cb.783038"
+            ],
+            [
+                "b607dafb.e17278"
+            ],
+            [
+                "b1b3c8f6.7b95e"
+            ],
+            [
+                "217af252.296dbe"
+            ],
+            [
+                "9363dd46.052948"
+            ],
+            [
+                "a1522d4a.ed2e2"
+            ],
+            [
+                "3a4856df.898a3a"
+            ],
+            [
+                "78b36b28.0ecdc4"
+            ],
+            [
+                "2408635f.4258ac"
+            ],
+            [
+                "be71a146.27533"
+            ],
+            [
+                "fd212630.c5ae7"
+            ],
+            [
+                "861ed549.14d7a"
+            ],
+            [
+                "dba3008f.e80b38"
+            ],
+            [
+                "f6c4de80.c277d8"
+            ],
+            [
+                "d66bd3d9.11d3d"
+            ],
+            [
+                "f3139d62.2c1378"
+            ]
+        ]
+    },
+    {
+        "id": "3f39e038.27ada",
+        "type": "debug",
+        "z": "22d896af.bdb902",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1090,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "3bb68b53.47a1bc",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCompressedAirRightenDoor",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "934302b1.1dbf38",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "CompressedAirRightenDoor",
+        "measurement": "Formiga_CompressedAirRightenDoor",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 980,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8e6df3f2.c52498",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCompressedAirSwitch",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "10ed696e.a1577f",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "AirSwitch",
+        "measurement": "Formiga_CompressedAirSwitch",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 920,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9b9036f.66ef548",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xCylinderPowderFlapAtDosageDuct",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 340,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "8bd2225e.62df48",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "PowderFlapAtDosageDuct",
+        "measurement": "Formiga_PowderFlapAtDosageDuct",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 980,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e3a854bc.31b7e8",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorLockAndLaser",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 380,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "ac8adea7.48daf",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "LockAndLaser",
+        "measurement": "Formiga_LockAndLaser",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "cfc084fd.7c8af8",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorLocked",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "4eb888ad.fee1a8",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "DoorLocked",
+        "measurement": "Formiga_DoorLocked",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5603eac1.79c11c",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorSafetyDisabled",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "e1f379fd.f53558",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "DoorSafetyDisabled",
+        "measurement": "Formiga_DoorSafetyDisabled",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 960,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "425b0bc5.b1c42c",
+        "type": "debug",
+        "z": "22d896af.bdb902",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1090,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a686d9d3.b9a63",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDoorSafetyInterrupted",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 500,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "f36cf99.d010c08",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "DoorSafetyInterrupted",
+        "measurement": "Formiga_DoorSafetyInterrupted",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 960,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "82d9bfa2.57d078",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xDosageFlapsPowderSupply",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 540,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "e80cd1cb.783038",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "DosageFlapsPowderSupply",
+        "measurement": "Formiga_DosageFlapsPowderSupply",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 980,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ddcb48ea.21219",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xEMOCircuitEmergencyOff",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 580,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "b607dafb.e17278",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "EMOCircuitEmergenyOff",
+        "measurement": "Formiga_EMOCircuitEmergenyOff",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 970,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9600f262.a8f",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xFramePresent",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 620,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "b1b3c8f6.7b95e",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "FramePresent",
+        "measurement": "Formiga_FramePresent",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "be4876e.1761188",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xHeaterProcessChamber",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 660,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "217af252.296dbe",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "HeaterProcessChamber",
+        "measurement": "Formiga_HeaterProcessChamber",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 970,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "64977204.e4b98c",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xHeaterUnloadingChamber",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 700,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "9363dd46.052948",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "HeaterUnloadingChamber",
+        "measurement": "Formiga_HeaterUnloadingChamber",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 970,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "af0edea6.c64d7",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xKeyswitchLaserOff",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 740,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "a1522d4a.ed2e2",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "KeyswitchLaserOff",
+        "measurement": "Formiga_KeyswitchLaserOff",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 950,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "1f4148ad.0a3fb7",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xLaserFault",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 780,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "3a4856df.898a3a",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "LaserFault",
+        "measurement": "Formiga_LaserFault",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "87a58b18.55d5e8",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xLaserWarning",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 820,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "78b36b28.0ecdc4",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "LaserWarning",
+        "measurement": "Formiga_LaserWarning",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "7eec2aaa.1da3dc",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xNitrogenGenerator",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 860,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "2408635f.4258ac",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "NitrogenGenerator",
+        "measurement": "Formiga_NitrogenGenerator",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 950,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "fc133037.262c3",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderVibratorAtDosageDuct",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 900,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "be71a146.27533",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "PowderVibratorAtDosageDuct",
+        "measurement": "Formiga_PowderVibratorAtDosageDuct",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 990,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "71e80f64.ad9688",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin1BuiltIn",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 940,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "fd212630.c5ae7",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "Powderbin1BuiltIn",
+        "measurement": "Formiga_Powderbin1BuiltIn",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 950,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "d6b58924.993028",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin1NotEmpty",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 980,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "861ed549.14d7a",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "Powderbin1NotEmpty",
+        "measurement": "Formiga_Powderbin1NotEmpty",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 960,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "e61c3f8c.bb498",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin2BuiltIn",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 1020,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "dba3008f.e80b38",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "Powderbin2BuiltIn",
+        "measurement": "Formiga_Powderbin2BuiltIn",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 950,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "68187f64.a43db",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xPowderbin2NotEmpty",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 1060,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "f6c4de80.c277d8",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "Powderbin2NotEmpty",
+        "measurement": "Formiga_Powderbin2NotEmpty",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 960,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "a52cf91b.e86db8",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xRecoaterLeft",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 1100,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "d66bd3d9.11d3d",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "RecoaterLeft",
+        "measurement": "Formiga_RecoaterLeft",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "7cb316fc.d2942",
+        "type": "OpcUa-Item",
+        "z": "22d896af.bdb902",
+        "item": "ns=4;s=|var|CODESYS Control for Raspberry Pi MC SL.Main.FormigaP100.xRecoaterRight",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "",
+        "x": 290,
+        "y": 1140,
+        "wires": [
+            [
+                "87cc4451.5e6a98"
+            ]
+        ]
+    },
+    {
+        "id": "f3139d62.2c1378",
+        "type": "influxdb out",
+        "z": "22d896af.bdb902",
+        "influxdb": "ef0af7fe.4b039",
+        "name": "RecoaterRight",
+        "measurement": "Formiga_RecoaterRight",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a62fe717.ad40f8",
+        "type": "debug",
+        "z": "22d896af.bdb902",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1190,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "418cd808.66d04",
+        "type": "OpcUa-Endpoint",
+        "z": "",
+        "endpoint": "opc.tcp://172.21.4.249:4840",
+        "secpol": "None",
+        "secmode": "NONE",
+        "login": false
+    },
+    {
+        "id": "ef0af7fe.4b039",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "172.17.0.4",
+        "port": "8086",
+        "protocol": "http",
+        "database": "FormigaPuryfill",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    }
+]
