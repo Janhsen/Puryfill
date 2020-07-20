@@ -29,14 +29,12 @@ services:
      - "1880:1880"
    networks:
      - host
-   restart: always
    user: root
    privileged: true
  
  influxdb:
    restart: unless-stopped
    image: influxdb:latest
-   restart: always
    ports:
      - "8086:8086"
    volumes:
